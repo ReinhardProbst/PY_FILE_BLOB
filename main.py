@@ -52,8 +52,8 @@ if __name__ == '__main__':
             data.append(chunk_data)
             chunk_act += 1
 
-        with open(options.file_base_name + str(idx), 'wb') as f:
+        with open(options.file_base_name + str(idx) + ".bin", 'wb') as f:
             f.write(b''.join(data))
-            print(f"Created: {options.file_base_name}{str(idx)}\n")
+            print(f"Created: {options.file_base_name}{str(idx)}.bin\n")
 
         idx += 1
