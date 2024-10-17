@@ -44,16 +44,16 @@ if __name__ == '__main__':
     idx = 0
 
     while idx < options.file_max_idx:
-        data = b''
+        data = []
         chunk_act = 0
 
         while chunk_act < options.chunk_numbers:
             chunk_data, addr = udp_recv.receive()
-            data += chunk_data
+            data.append(chunk_data)
             chunk_act += 1
 
         with open(options.file_base_name + str(idx), 'wb') as f:
-            f.write(data)
+            f.write(b''.join(data))
             print(f"Created: {options.file_base_name}{str(idx)}\n")
 
         idx += 1
