@@ -28,7 +28,7 @@ if __name__ == '__main__':
     op.add_option("-c", "--cs",  dest="chunk_size", type="int", help="Chunk size", default=8)
     op.add_option("-n", "--cn",  dest="chunk_numbers", type="int", help="Chunk numbers", default=2)
     op.add_option("-f", "--fbn",  dest="file_base_name", type="string", help="File base name", default="packet_")
-    op.add_option("-i", "--fmi",  dest="file_numbers", type="int", help="Max file numbers", default=3)
+    op.add_option("-m", "--mfn",  dest="max_file_numbers", type="int", help="Max file numbers", default=3)
 
     (options, args) = op.parse_args()
 
@@ -38,12 +38,12 @@ if __name__ == '__main__':
         op.print_help()
         op.exit()
 
-    print(f"Arguments: {options.ipaddr} / {options.port} / {options.chunk_size} / {options.chunk_numbers} / {options.file_base_name} / {options.file_numbers}\n")
+    print(f"Arguments: {options.ipaddr} / {options.port} / {options.chunk_size} / {options.chunk_numbers} / {options.file_base_name} / {options.max_file_numbers}\n")
 
     udp_recv = udp_receiver.UDPReceiver(options.ipaddr, options.port, options.chunk_size, True)
 
-    fb = file_blob.FileBlob(options.chunk_numbers, options.file_numbers, udp_recv.receive)
+    fb = file_blob.FileBlob(options.chunk_numbers, options.max_file_numbers, udp_recv.receive)
 
     fb.collect()
 
-# Test locally with "cat 8bytes.bin | nc -u -4 -w 1  0.0.0.0 12000"
+# Test locally with "cat 8bytes.bin | nc -u -4 -w 1  0.0.0.0 12000", send it 6 times

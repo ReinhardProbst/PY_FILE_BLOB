@@ -28,7 +28,8 @@ if __name__ == '__main__':
     op.add_option("-c", "--cs",  dest="chunk_size", type="int", help="Chunk size", default=8)
     op.add_option("-n", "--cn",  dest="chunk_numbers", type="int", help="Chunk numbers", default=2)
     op.add_option("-f", "--fbn",  dest="file_base_name", type="string", help="File base name", default="packet_")
-    op.add_option("-i", "--fmi",  dest="file_max_idx", type="int", help="File max indice", default=3)
+    op.add_option("-m", "--mfn",  dest="max_file_numbers", type="int", help="Max file numbers", default=3)
+    op.add_option("-i", "--ini",  dest="init_str", type="string", help="Init string send", default=b"Try to connect\n")
 
     (options, args) = op.parse_args()
 
@@ -38,13 +39,13 @@ if __name__ == '__main__':
         op.print_help()
         op.exit()
 
-    print(f"Arguments: {options.ipaddr} / {options.port} / {options.chunk_size} / {options.chunk_numbers} / {options.file_base_name} / {options.file_max_idx}\n")
+    print(f"Arguments: {options.ipaddr} / {options.port} / {options.chunk_size} / {options.chunk_numbers} / {options.file_base_name} / {options.max_file_numbers} / {options.init_str}\n")
 
     tcp_cl = tcp_client.TCPClient(options.ipaddr, options.port, options.chunk_size, True)
 
-    fb = file_blob.FileBlob(options.chunk_numbers, options.file_max_idx, tcp_cl.receive)
+    fb = file_blob.FileBlob(options.chunk_numbers, options.max_file_numbers, tcp_cl.receive)
 
-    tcp_cl.connect(b"Try to connect\n")
+    tcp_cl.connect(options.init_str)
     fb.collect()
 
 # Test locally with "nc -l 12000 < 48bytes.bin"
