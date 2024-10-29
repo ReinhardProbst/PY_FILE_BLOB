@@ -39,5 +39,8 @@ class UDPReceiver:
         self.sock.close()
 
     def receive(self):
-        return self.sock.recvfrom(self.bufsize)
+        return self.sock.recv(self.bufsize)
+
+    def close(self):
+        self.sock.close()
 
