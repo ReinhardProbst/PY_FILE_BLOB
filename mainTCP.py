@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
     fb = file_blob.FileBlob(options.chunk_numbers, options.max_file_numbers, tcp_cl.receive)
 
-    tcp_cl.connect(options.init_str)
+    tcp_cl.connect(str.encode(options.init_str))
     fb.collect()
 
 # Test locally with "nc -l 12000 < 48bytes.bin"
