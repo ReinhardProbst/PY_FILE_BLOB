@@ -15,7 +15,7 @@ _ABOUT = _AUTHOR + '  v' + _VERSION + '   ' + _COPYRIGHT
 
 
 class FileBlob:
-    def __init__(self, chunk_numbers = 100, file_numbers = 10, recv = None, base_name = "packet_"):
+    def __init__(self, chunk_numbers = 100, file_numbers = 10, recv = None, base_name = "packet"):
         self.base_name = base_name
         self.chunk_numbers = chunk_numbers
         self.file_numbers = file_numbers
@@ -33,8 +33,9 @@ class FileBlob:
                 data.append(chunk_data)
                 chunk_act += 1
 
-            with open(self.base_name + str(idx) + ".bin", 'wb') as f:
+            fno = "{:04}".format(idx)
+            with open(self.base_name + fno + ".bin", 'wb') as f:
                 f.write(b''.join(data))
-                print(f"Created: {self.base_name}{str(idx)}.bin\n")
+                print(f"Created: {self.base_name}{fno}.bin\n")
 
             idx += 1
