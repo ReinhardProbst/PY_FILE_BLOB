@@ -3,7 +3,7 @@
 """
 MAIN
 
-Create file blobs from UDP packets
+Create file blobs from TCP packets
 """
 
 ##------------------------------------------------------------
